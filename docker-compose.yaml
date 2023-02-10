@@ -14,18 +14,13 @@ services:
   postgres:
     image: postgres:14
     environment:
-      POSTGRES_USER: test
+      POSTGRES_DB: nifi-test
+      POSTGRES_USER: user
       POSTGRES_PASSWORD: 123456
       PGDATA: /data/postgres
     volumes:
-       - ./postgres:/data/postgres
+       - ./postgres/data:/data/postgres
+       - ./postgres/sql:/docker-entrypoint-initdb.d
     ports:
       - "5433:5432"
     command: ["postgres", "-c", "log_statement=all"]
-  pgadmin:
-    image: dpage/pgadmin4:6.19
-    environment: 
-      PGADMIN_DEFAULT_EMAIL: test@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 123456
-    ports:
-      - "8081:80"
