@@ -1,2 +1,7 @@
 postgres/data
 nifi/conf/archive/
+
+# hold files in the current position
+nifi/conf/flow.json.gz
+nifi/conf/flow.xml.gz
+nifi/conf/nifi.properties
