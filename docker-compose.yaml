@@ -1,6 +1,7 @@
 version: '3.9'
 services:
   nifi:
+    container_name: nifi-test-1
     image: apache/nifi:1.19.0
     user: root
     environment: 
@@ -12,20 +13,16 @@ services:
       - ./nifi/conf/:/opt/nifi/nifi-current/conf/
       - ./nifi/driver:/opt/nifi/nifi-current/driver 
   postgres:
+    container_name: postgres-test-1
     image: postgres:14
     environment:
-      POSTGRES_USER: test
+      POSTGRES_DB: nifi-test
+      POSTGRES_USER: user
       POSTGRES_PASSWORD: 123456
       PGDATA: /data/postgres
     volumes:
-       - ./postgres:/data/postgres
+       - ./postgres/data:/data/postgres
+       - ./postgres/sql:/docker-entrypoint-initdb.d
     ports:
       - "5433:5432"
     command: ["postgres", "-c", "log_statement=all"]
-  pgadmin:
-    image: dpage/pgadmin4:6.19
-    environment: 
-      PGADMIN_DEFAULT_EMAIL: test@gmail.com
-      PGADMIN_DEFAULT_PASSWORD: 123456
-    ports:
-      - "8081:80"
