@@ -1,0 +1,43 @@
+---
+- hosts: ubuntu
+  name: Install etcd
+  vars_files:
+    - "vars/etcd.yml"
+  tasks:
+  - name: "Make dir for etcd binaries"
+    file:
+      path: "{{ etcd_bin_path }}"
+      state: directory
+    become: true
+  
+  - name: "Download etcd"
+    get_url:
+      url: "{{ etcd_download_url }}"
+      dest: "{{ etcd_tar_path }}"
+
+  - name: "Extract tar gz"
+    unarchive:
+      src: "{{ etcd_tar_path }}"
+      dest: "{{ etcd_bin_path }}"
+      extra_opts:
+      - --strip-components=1
+      remote_src: true
+    become: true
+
+  - name: "Add /opt/etcd/bin/ to the $PATH environment variable"
+    lineinfile:
+      path: /etc/profile
+      line: export PATH="$PATH:/opt/etcd/bin"
+      state: present
+      create: True
+      insertafter: EOF
+    become: true
+
+  - name: "Set the ETCDCTL_API environment variable to 3"
+    lineinfile:
+      path: /etc/profile
+      line: export ETCDCTL_API=3
+      state: present
+      create: True
+      insertafter: EOF
+    become: true
