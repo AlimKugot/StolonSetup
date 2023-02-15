@@ -5,3 +5,7 @@ nifi/conf/archive/
 nifi/conf/flow.json.gz
 nifi/conf/flow.xml.gz
 nifi/conf/nifi.properties
+
+# logs
+vm/ansible/ansible.log
+vm/.vagrant/

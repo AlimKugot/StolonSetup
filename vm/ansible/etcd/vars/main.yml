@@ -1,0 +1,9 @@
+---
+# vars file for etcd
+#
+etcd_user: etcd
+etcd_config_dir: /etc/etcd
+etcd_data_dir: /opt/etcd
+etcd_bin_dir: /usr/local/bin
+etcd_client_port: 2350
+etcd_peer_port: 2300

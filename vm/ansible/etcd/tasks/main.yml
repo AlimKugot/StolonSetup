@@ -1,0 +1,17 @@
+- name: create etcd user
+- user: >
+    name={{etcd_user}}
+    home={{ etcd_config_dir}}
+    shell=/bin/false
+    system=yes
+
+- name: create data directory
+  file: >
+    state=directory
+    path={{ etcd_data_dir }}
+    owner={{ etcd_user }}
+    group={{ etcd_user }}
+
+- name: load etcd binaries
+  unarchive:
+    

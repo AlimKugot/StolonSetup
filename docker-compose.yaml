@@ -26,3 +26,7 @@ services:
     ports:
       - "5433:5432"
     command: ["postgres", "-c", "log_statement=all"]
+  machine-1:
+    container_name: machine_1
+    image:
+  
